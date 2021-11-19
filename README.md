@@ -19,7 +19,7 @@ Please access app by [localhost:4000](http://localhost:4000)
 * back-end: Nodejs, expressjs    
 * network requests: Axios    
 
-## main feature:
+## main features:
 #### UI features:
 * Multiple forms are combined to create an order form    
 * "Required" fields validation on each page    
