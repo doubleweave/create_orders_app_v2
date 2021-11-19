@@ -22,7 +22,7 @@ Please access app by [localhost:4000](http://localhost:4000)
 ## main feature:
 #### UI features:
 * Multiple forms are combined to create an order form    
-* "required" fields validation on each page    
+* "Required" fields validation on each page    
 * Use material-ui autocomplete module to prompt default value    
 
 #### Front-end features:
