@@ -11,4 +11,3 @@ $ npm install
 $ npm run start
 
 Please access app by localhost:4000
-# create_orders_app_v2
