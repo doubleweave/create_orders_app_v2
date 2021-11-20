@@ -30,7 +30,7 @@ app.use('/', indexRouter)
 // handle token error
 app.use(function (err, req, res, next) {
   if (err.name === 'UnauthorizedError') {
-    res.status(401).send({ code: 0, msg: 'token验证失败' })
+    res.status(401).send({ code: 0, msg: 'token error' })
   } else {
     // set locals, only providing error in development
     res.locals.message = err.message
