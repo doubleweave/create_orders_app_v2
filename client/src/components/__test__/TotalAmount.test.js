@@ -1,5 +1,5 @@
 import TestRenderer, { act } from 'react-test-renderer'
-import TotalAmount from '../createOrders/subForm/TotalAmount'
+import TotalAmount from '../createOrders/subForms/TotalAmount'
 import createOrdersContext from '../context/createOrdersContext'
 
 describe('Testing useContext and useReducer in TotalAmount', () => {

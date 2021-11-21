@@ -68,11 +68,13 @@ const StoreProvider = ({ children }) => {
 
 const index = () => {
   return (
-    <div className="direct-communicate">
+    <div className="create-orders">
       <StoreProvider>
         <HashRouter>
           <Switch>
-            <Route component={Form}></Route>
+            <Route>
+              <Form />
+            </Route>
           </Switch>
         </HashRouter>
       </StoreProvider>

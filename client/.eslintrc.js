@@ -1,0 +1,30 @@
+module.exports = {
+  parser: '@typescript-eslint/parser',
+  plugins: ['@typescript-eslint'],
+  rules: {
+    'no-var': 'error',
+    'no-extra-semi': 'error',
+    // '@typescript-eslint/indent': ['error', 2],
+    // 'indent': ['error', 2, { SwitchCase: 1 }],
+    'import/extensions': 'off',
+    'linebreak-style': [0, 'error', 'windows'],
+    'space-before-function-paren': 0,
+    'eol-last': 0,
+    // 'semi': ['error', 'always'],
+    // semi: [2, 'never'],
+    quotes: ['error', 'single'],
+    'no-console': ['error', { allow: ['log', 'warn'] }],
+    'arrow-parens': 0,
+    'no-new': 0,
+    'comma-dangle': [2, 'never'],
+    'no-undef': 0,
+    'comma-dangle': [1, 'always-multiline'],
+  },
+  parserOptions: {
+    ecmaVersion: 6,
+    sourceType: 'module',
+    ecmaFeatures: {
+      modules: true,
+    },
+  },
+}

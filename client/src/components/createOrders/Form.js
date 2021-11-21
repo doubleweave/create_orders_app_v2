@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react'
-import TotalAmount from './subForm/TotalAmount'
-import Consumer from './subForm/Consumer'
-import Billing from './subForm/Billing'
-import Shipping from './subForm/Shipping'
-import Items from './subForm/Items'
-import Merchant from './subForm/Merchant'
+import TotalAmount from './subForms/TotalAmount'
+import Consumer from './subForms/Consumer'
+import Billing from './subForms/Billing'
+import Shipping from './subForms/Shipping'
+import Items from './subForms/Items'
+import Merchant from './subForms/Merchant'
 
-import { Box } from '@mui/material'
+import { Box, CircularProgress, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import LinearProgress, {
   linearProgressClasses,
 } from '@mui/material/LinearProgress'
 
 import { useLocation, useHistory } from 'react-router-dom'
-import { Router, Route, Switch } from 'react-router'
+import { Route, Switch } from 'react-router'
 
 const pageStyle = {
   width: {
@@ -34,9 +34,6 @@ const pageStyle = {
   alignItems: 'space-between',
   flexGrow: 1,
   flexShrink: 1,
-  // maxHeight: '100vh',
-  // // overflow: 'hidden',
-  // overflowY: 'scroll',
 }
 
 const formTopLabel = {
@@ -59,21 +56,14 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   },
 }))
 
-const routes = {
-  '/totalAmount': () => <TotalAmount />,
-  '/consumer': () => <Consumer />,
-  '/billing': () => <Billing />,
-  '/shipping': () => <Shipping />,
-  '/items': () => <Items />,
-}
-
 function Form() {
-  // const [page, setPage] = useState(0)
   const location = useLocation()
   const history = useHistory()
 
   console.log('location in Form: ', location)
   console.log('history in Form: ', history)
+
+  const [waitRes, setWaitRes] = useState(false)
 
   const FormTitle = [
     '/totalAmount',
@@ -83,11 +73,8 @@ function Form() {
     '/items',
     '/merchant',
   ]
-
   const [progressWidth, setProgressWidth] = useState(0)
-
   let path = location.pathname
-
   useEffect(() => {
     console.log('path in Form page: ', path)
 
@@ -102,36 +89,70 @@ function Form() {
   }, [path])
 
   return (
-    <Box className="form" sx={pageStyle}>
-      <div>
+    <>
+      {waitRes ? (
         <Box
-          color="secondary"
           sx={{
-            width: '92%',
-            height: '15px',
-            left: 2,
-            mt: 2,
-            ml: 2,
+            height: '100vh',
+            margin: '0 auto',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
         >
-          <BorderLinearProgress
-            data-testid="linearProgress"
-            variant="determinate"
-            value={progressWidth}
-          />
+          <Typography
+            sx={{ fontSize: 25, mb: 2 }}
+            color="text.secondary"
+            gutterBottom
+          >
+            Orders creating
+          </Typography>
+          <CircularProgress />
         </Box>
-      </div>
-      <div>
-        <Switch>
-          <Route path="/totalAmount" component={TotalAmount} />
-          <Route path="/consumer" component={Consumer} />
-          <Route path="/billing" component={Billing} />
-          <Route path="/shipping" component={Shipping} />
-          <Route path="/items" component={Items} />
-          <Route path="/merchant" component={Merchant} />
-        </Switch>
-      </div>
-    </Box>
+      ) : (
+        <Box className="form" sx={pageStyle}>
+          <div>
+            <Box
+              color="secondary"
+              sx={{
+                width: '92%',
+                height: '15px',
+                left: 2,
+                mt: 2,
+                ml: 2,
+              }}
+            >
+              <BorderLinearProgress
+                data-testid="linearProgress"
+                variant="determinate"
+                value={progressWidth}
+              />
+            </Box>
+          </div>
+          <div>
+            <Route path="/totalAmount">
+              <TotalAmount />
+            </Route>
+            <Route path="/consumer">
+              <Consumer />
+            </Route>
+            <Route path="/billing">
+              <Billing />
+            </Route>
+            <Route path="/shipping">
+              <Shipping />
+            </Route>
+            <Route path="/items">
+              <Items />
+            </Route>
+            <Route path="/merchant">
+              <Merchant waitRes={waitRes} setWaitRes={setWaitRes} />
+            </Route>
+          </div>
+        </Box>
+      )}
+    </>
   )
 }
 

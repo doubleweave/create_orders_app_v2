@@ -1,7 +1,5 @@
 import React from 'react'
 // import './App.css'
-// import DirectCommunicate from './components/DirectCommunicate';
-// import Form from './components/createOrders/Form'
 import CreateOrders from './components/createOrders'
 
 import {
