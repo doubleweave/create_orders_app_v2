@@ -94,7 +94,6 @@ function TotalAmount() {
                     id="amount"
                     disableClearable
                     className="totalAmount_amount"
-                    data-testid="autocomplete"
                     value={val[0].totalAmount.amount}
                     // onchange for drop down list
                     onChange={(e, values) => {
@@ -113,6 +112,8 @@ function TotalAmount() {
                         InputProps={{
                           ...params.InputProps,
                           type: 'text',
+                          // for jest testing
+                          'data-testid': 'amount_autocomplete',
                         }}
                         // onChange for textField
                         onChange={(e) => {

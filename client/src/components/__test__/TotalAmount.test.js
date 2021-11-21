@@ -1,4 +1,6 @@
 import TestRenderer, { act } from 'react-test-renderer'
+import { render, fireEvent } from '@testing-library/react'
+
 import TotalAmount from '../createOrders/subForms/TotalAmount'
 import createOrdersContext from '../context/createOrdersContext'
 
@@ -14,33 +16,34 @@ describe('Testing useContext and useReducer in TotalAmount', () => {
     dispatchFn,
   ]
 
-  const element = new TestRenderer.create(
-    (
-      // <NameContext.Provider value="Provided Value">
-      <createOrdersContext.Provider value={contextValue}>
-        <TotalAmount />
-      </createOrdersContext.Provider>
-    )
-  )
-
-  const testInstance = element.root
-
   it('useContext value got in TotalAmount', () => {
+    const element = new TestRenderer.create(
+      (
+        <createOrdersContext.Provider value={contextValue}>
+          <TotalAmount />
+        </createOrdersContext.Provider>
+      )
+    )
+
+    const testInstance = element.root
     expect(
       testInstance.findByProps({ className: 'totalAmount_amount' }).props.value
     ).toEqual('123')
   })
 
-  // it('useReducer dispatch function called in TotalAmount', async () => {
-  //   const mEvent = { target: { value: 'testing value' } }
-  //   const dispatchValue = {
-  //     type: 'CREATE_ORDERS_UPDATE_TOTALAMOUNT_AMOUNT',
-  //     payload: 'testing value',
-  //   }
+  it('useReducer dispatch function called in TotalAmount', async () => {
+    const { getByTestId } = render(
+      <createOrdersContext.Provider value={contextValue}>
+        <TotalAmount />
+      </createOrdersContext.Provider>
+    )
 
-  //   await act(async () => {
-  //     testInstance.findByProps({ id: 'amount' }).props.onChange(mEvent)
-  //   })
-  //   expect(dispatchFn).toBeCalled()
-  // })
+    const amountAutoComplete = getByTestId('amount_autocomplete').querySelector(
+      'input'
+    )
+
+    fireEvent.change(amountAutoComplete, { target: { value: '23' } })
+
+    expect(dispatchFn).toBeCalled()
+  })
 })
