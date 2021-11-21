@@ -16,7 +16,7 @@ $ npm run start
 
 ```
 
-Please access the app by [localhost:4000](http://localhost:4000)
+Please access the app by [localhost:4000](http://localhost:4000)  
 Backend api documentation: [localhost:4000/api-docs](http://localhost:4000/api-docs)
 
 ## Frameworks:
