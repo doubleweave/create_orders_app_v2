@@ -4,7 +4,8 @@ import createOrdersContext from '../context/createOrdersContext'
 import { HashRouter, Route, Switch } from 'react-router-dom'
 import Form from './Form'
 
-const userReducer = {
+// initial form data stored in useReducer
+const initUserReducer = {
   totalAmount: {
     amount: '',
     currency: '',
@@ -57,10 +58,11 @@ const userReducer = {
   merchantReference: '',
 }
 
+// useReducer + useMemo + useContext = State Container
 const { Provider } = createOrdersContext
 
 const StoreProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(createOrdersReducer, userReducer)
+  const [state, dispatch] = useReducer(createOrdersReducer, initUserReducer)
   const store = React.useMemo(() => [state, dispatch], [state])
   console.log('store in createOrders context value: ', store)
   return <Provider value={store}> {children} </Provider>

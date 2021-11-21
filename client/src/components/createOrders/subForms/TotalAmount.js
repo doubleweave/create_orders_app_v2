@@ -43,9 +43,14 @@ const formTopLabel = {
 const amountDefault = [{ amount: '190.00' }]
 
 function TotalAmount() {
+  // get state and dispatch from context
+  // val[0]: state
+  // val[1]: dispatch function
   const val = useContext(createOrdersContext)
   console.log('val[0]: ', val)
   const history = useHistory()
+
+  // if required field is empty, errMsg will be displayed
   const [errMsg, setErrMsg] = useState('')
   const toConsumerPage = () => {
     if (val[0].totalAmount.amount === '') {
@@ -56,6 +61,7 @@ function TotalAmount() {
       history.replace('/consumer')
     }
   }
+
   return (
     <>
       <Box className="form" sx={pageStyle}>
@@ -82,6 +88,7 @@ function TotalAmount() {
                   </Box>
                 ) : null}
                 <Stack spacing={2} sx={{ width: 300 }}>
+                  {/* Autocomplete module: show default value */}
                   <Autocomplete
                     freeSolo
                     id="amount"
@@ -89,6 +96,7 @@ function TotalAmount() {
                     className="totalAmount_amount"
                     data-testid="autocomplete"
                     value={val[0].totalAmount.amount}
+                    // onchange for drop down list
                     onChange={(e, values) => {
                       val[1]({
                         type: 'CREATE_ORDERS_UPDATE_TOTALAMOUNT_AMOUNT',
@@ -106,6 +114,7 @@ function TotalAmount() {
                           ...params.InputProps,
                           type: 'text',
                         }}
+                        // onChange for textField
                         onChange={(e) => {
                           val[1]({
                             type: 'CREATE_ORDERS_UPDATE_TOTALAMOUNT_AMOUNT',
@@ -166,6 +175,7 @@ function TotalAmount() {
             }}
             fullWidth
           >
+            {/* button to fill default value into form, for testing only */}
             Default value for testing
           </Button>
           <Button
@@ -175,6 +185,7 @@ function TotalAmount() {
             disabled
             fullWidth
           >
+            {/* back to previous page */}
             Previous
           </Button>
           <Button

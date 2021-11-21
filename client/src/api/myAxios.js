@@ -1,9 +1,11 @@
 import axios from 'axios'
 
+// format for axois.get()
 export default async function myAxios(
   url = '',
   data = {},
   type = 'GET',
+  //passing file type for upload
   config = {}
 ) {
   if (type === 'GET') {

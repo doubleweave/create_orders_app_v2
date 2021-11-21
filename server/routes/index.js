@@ -13,6 +13,7 @@ router.get('/', function (req, res, next) {
  * @swagger
  * /createOrders:
  *    post:
+ *      tags: [createOrders]
  *      summary: Sending form data to target api
  *      requestBody:
  *       required: true

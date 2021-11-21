@@ -25,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', indexRouter)
 
+// set up swagger
 const swaggerDefinition = {
   openapi: '3.0.0',
   info: {
@@ -43,12 +44,10 @@ const swaggerDefinition = {
   ],
   schemes: ['https', 'http'],
 }
-
 const options = {
   swaggerDefinition,
   apis: [`${__dirname}/routes/*.js`],
 }
-
 const swaggerSpec = swaggerJsdoc(options)
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 

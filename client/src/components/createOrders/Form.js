@@ -12,9 +12,9 @@ import LinearProgress, {
   linearProgressClasses,
 } from '@mui/material/LinearProgress'
 
-import { useLocation, useHistory } from 'react-router-dom'
-import { Route, Switch } from 'react-router'
+import { useLocation, useHistory, Route } from 'react-router-dom'
 
+// styles for material-ui
 const pageStyle = {
   width: {
     xs: '100%',
@@ -43,6 +43,7 @@ const formTopLabel = {
   lineHeight: '50px',
 }
 
+// customized progress bar: https://mui.com/components/progress/
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 10,
   borderRadius: 5,
@@ -57,13 +58,15 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 }))
 
 function Form() {
+  // variable to show loading page
+  const [waitRes, setWaitRes] = useState(false)
+
+  // check current path and redirect
   const location = useLocation()
   const history = useHistory()
 
   console.log('location in Form: ', location)
   console.log('history in Form: ', history)
-
-  const [waitRes, setWaitRes] = useState(false)
 
   const FormTitle = [
     '/totalAmount',
@@ -90,6 +93,7 @@ function Form() {
 
   return (
     <>
+      {/* two parts: progress bar and the forms */}
       {waitRes ? (
         <Box
           sx={{
