@@ -12,7 +12,9 @@ import LinearProgress, {
   linearProgressClasses,
 } from '@mui/material/LinearProgress'
 
-import { useLocation, useHistory, Route } from 'react-router-dom'
+import { useLocation, useHistory } from 'react-router-dom'
+// to avoid warning in jest: warning: React.jsx: type is invalid -- expected a string (for build-in components) or a class/function (for composite components) but got: undefined.
+import { Route } from 'react-router'
 
 // styles for material-ui
 const pageStyle = {

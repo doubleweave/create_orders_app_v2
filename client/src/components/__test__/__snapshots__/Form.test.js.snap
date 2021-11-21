@@ -1,78 +1,87 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing Form Renders correctly 1`] = `
-<ForwardRef(Box)
-  className="form"
-  sx={
-    Object {
-      "alignItems": "space-between",
-      "border": Object {
-        "sm": "1px red solid",
-        "xl": "1px green solid",
-        "xs": "1px yellow solid",
-      },
-      "display": "flex",
-      "flexDirection": "column",
-      "flexGrow": 1,
-      "flexShrink": 1,
-      "height": "100vh",
-      "justifyContent": "space-between",
-      "margin": "0 auto",
-      "width": Object {
-        "sm": "380px",
-        "xl": "380px",
-        "xs": "100%",
-      },
-    }
-  }
->
-  <div>
-    <ForwardRef(Box)
-      color="secondary"
-      sx={
-        Object {
-          "height": "15px",
-          "left": 2,
-          "ml": 2,
-          "mt": 2,
-          "width": "92%",
-        }
+<React.Fragment>
+  <ForwardRef(Box)
+    className="form"
+    sx={
+      Object {
+        "alignItems": "space-between",
+        "border": Object {
+          "sm": "1px red solid",
+          "xl": "1px green solid",
+          "xs": "1px yellow solid",
+        },
+        "display": "flex",
+        "flexDirection": "column",
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "height": "100vh",
+        "justifyContent": "space-between",
+        "margin": "0 auto",
+        "width": Object {
+          "sm": "380px",
+          "xl": "380px",
+          "xs": "100%",
+        },
       }
-    >
-      <Styled(ForwardRef(LinearProgress))
-        data-testid="linearProgress"
-        value={0}
-        variant="determinate"
-      />
-    </ForwardRef(Box)>
-  </div>
-  <div>
-    <Switch>
+    }
+  >
+    <div>
+      <ForwardRef(Box)
+        color="secondary"
+        sx={
+          Object {
+            "height": "15px",
+            "left": 2,
+            "ml": 2,
+            "mt": 2,
+            "width": "92%",
+          }
+        }
+      >
+        <Styled(ForwardRef(LinearProgress))
+          data-testid="linearProgress"
+          value={0}
+          variant="determinate"
+        />
+      </ForwardRef(Box)>
+    </div>
+    <div>
       <Route
-        component={[Function]}
         path="/totalAmount"
-      />
+      >
+        <TotalAmount />
+      </Route>
       <Route
-        component={[Function]}
         path="/consumer"
-      />
+      >
+        <Consumer />
+      </Route>
       <Route
-        component={[Function]}
         path="/billing"
-      />
+      >
+        <Billing />
+      </Route>
       <Route
-        component={[Function]}
         path="/shipping"
-      />
+      >
+        <Shipping />
+      </Route>
       <Route
-        component={[Function]}
         path="/items"
-      />
+      >
+        <Items />
+      </Route>
       <Route
-        component={[Function]}
         path="/merchant"
-      />
-    </Switch>
-  </div>
-</ForwardRef(Box)>
+      >
+        <MerchantInfo
+          setWaitRes={[Function]}
+          waitRes={false}
+        />
+      </Route>
+    </div>
+  </ForwardRef(Box)>
+</React.Fragment>
 `;
