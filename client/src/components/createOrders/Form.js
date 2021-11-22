@@ -32,10 +32,11 @@ const pageStyle = {
   margin: '0 auto',
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'space-between',
+  // justifyContent: 'space-between',
   alignItems: 'space-between',
   flexGrow: 1,
   flexShrink: 1,
+  // backgroundColor: '#e0e0e0',
 }
 
 const formTopLabel = {

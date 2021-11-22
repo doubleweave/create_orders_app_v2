@@ -1,5 +1,7 @@
 const createOrdersReducer = (state, action) => {
   const { type, payload } = action
+  let value
+  let itemIndex
   const data = { ...state }
   switch (type) {
     //totalAmount
@@ -137,59 +139,74 @@ const createOrdersReducer = (state, action) => {
       }
 
     //items
-
     case 'CREATE_ORDERS_UPDATE_ITEMS_GTIN':
       console.log('phoneNumber: ', payload)
-      data.items[0].gtin = payload
+      value = payload.value
+      itemIndex = payload.itemIndex
+      data.items[itemIndex].gtin = value
       console.log('data in reducer: ', data)
       return {
         ...data,
       }
     case 'CREATE_ORDERS_UPDATE_ITEMS_QUANTITY':
       console.log('payload: ', payload)
-      data.items[0].quantity = payload
+      value = payload.value
+      itemIndex = payload.itemIndex
+      data.items[itemIndex].quantity = value
       console.log('data in reducer: ', data)
       return {
         ...data,
       }
     case 'CREATE_ORDERS_UPDATE_ITEMS_PRICE_AMOUNT':
       console.log('payload: ', payload)
-      data.items[0].price.amount = payload
+      value = payload.value
+      itemIndex = payload.itemIndex
+      data.items[itemIndex].price.amount = value
       console.log('data in reducer: ', data)
       return {
         ...data,
       }
     case 'CREATE_ORDERS_UPDATE_ITEMS_PRICE_CURRENCY':
       console.log('payload: ', payload)
-      data.items[0].price.currency = payload
+      value = payload.value
+      itemIndex = payload.itemIndex
+      data.items[itemIndex].price.currency = value
       console.log('data in reducer: ', data)
       return {
         ...data,
       }
     case 'CREATE_ORDERS_UPDATE_ITEMS_NAME':
       console.log('payload: ', payload)
-      data.items[0].name = payload
+      value = payload.value
+      itemIndex = payload.itemIndex
+      data.items[itemIndex].name = value
       console.log('data in reducer: ', data)
       return {
         ...data,
       }
     case 'CREATE_ORDERS_UPDATE_ITEMS_CATEGORY':
       console.log('payload: ', payload)
-      data.items[0].category = payload
+      value = payload.value
+      itemIndex = payload.itemIndex
+      data.items[itemIndex].category = value
       console.log('data in reducer: ', data)
       return {
         ...data,
       }
     case 'CREATE_ORDERS_UPDATE_ITEMS_SKU':
       console.log('phoneNumber: ', payload)
-      data.items[0].sku = payload
+      value = payload.value
+      itemIndex = payload.itemIndex
+      data.items[itemIndex].sku = value
       console.log('data in reducer: ', data)
       return {
         ...data,
       }
     case 'CREATE_ORDERS_UPDATE_ITEMS_BRAND':
       console.log('payload: ', payload)
-      data.items[0].brand = payload
+      value = payload.value
+      itemIndex = payload.itemIndex
+      data.items[itemIndex].brand = value
       console.log('data in reducer: ', data)
       return {
         ...data,
@@ -292,6 +309,56 @@ const createOrdersReducer = (state, action) => {
         },
         orderExpiryMilliseconds: 600000,
         merchantReference: 'merchantOrder-1234',
+      }
+
+    // fill in items form for testing
+    case 'SET_DEFAULT_VALUE_FOR_ITEMS_OBJECT':
+      const testingNewItem = {
+        price: {
+          amount: '30.00',
+          currency: 'EUR',
+        },
+        quantity: 2,
+        gtin: '223344556677',
+        name: 'Hat',
+        category: 'clothes',
+        sku: '23452345',
+        brand: 'BestChoice',
+      }
+      data.items.push(testingNewItem)
+      console.log('data in reducer: ', data)
+      return {
+        ...data,
+      }
+
+    // add a new object in items array
+    case 'CREATE_ORDERS_CREATE_NEW_OBJECT_IN_ITEMS':
+      console.log('payload: ', payload)
+      const newItem = {
+        price: {
+          amount: '',
+          currency: '',
+        },
+        quantity: 1,
+        gtin: '',
+        name: '',
+        category: '',
+        sku: '',
+        brand: '',
+      }
+      data.items.push(newItem)
+      console.log('data in reducer: ', data)
+      return {
+        ...data,
+      }
+    // delete target object in items array
+    case 'CREATE_ORDERS_DELETE_TARGET_ITEM_IN_ITEMS':
+      console.log('payload: ', payload)
+      const targetIndex = payload
+      data.items.splice(targetIndex, 1)
+      console.log('data in reducer: ', data)
+      return {
+        ...data,
       }
 
     default:

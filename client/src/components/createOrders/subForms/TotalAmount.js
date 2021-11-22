@@ -9,6 +9,8 @@ import {
   Box,
   Stack,
   Autocomplete,
+  Card,
+  CardContent,
 } from '@mui/material'
 import { useHistory } from 'react-router-dom'
 
@@ -162,7 +164,6 @@ function TotalAmount() {
             </div>
           </form>
         </div>
-
         <div>
           <Button
             variant="contained"
@@ -176,8 +177,8 @@ function TotalAmount() {
             }}
             fullWidth
           >
-            {/* button to fill default value into form, for testing only */}
-            Default value for testing
+            {/* quick button: filling value into forms, to test final submit function */}
+            Default value for testing "submit"
           </Button>
           <Button
             variant="contained"

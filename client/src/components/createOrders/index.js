@@ -33,18 +33,30 @@ const initUserReducer = {
     line1: '',
   },
   items: [
-    {
-      price: {
-        amount: '',
-        currency: '',
-      },
-      quantity: 1,
-      gtin: '',
-      name: '',
-      category: '',
-      sku: '',
-      brand: '',
-    },
+    // {
+    //   price: {
+    //     amount: '',
+    //     currency: '',
+    //   },
+    //   quantity: 1,
+    //   gtin: '',
+    //   name: '',
+    //   category: '',
+    //   sku: '',
+    //   brand: '',
+    // },
+    // {
+    //   price: {
+    //     amount: '',
+    //     currency: '',
+    //   },
+    //   quantity: 2,
+    //   gtin: '',
+    //   name: '',
+    //   category: '',
+    //   sku: '',
+    //   brand: '',
+    // },
   ],
   merchant: {
     redirectCancelUrl: '',

@@ -3,8 +3,6 @@ import createOrdersContext from '../../context/createOrdersContext'
 import {
   TextField,
   Grid,
-  FormLabel,
-  Button,
   Box,
   Paper,
   Divider,
@@ -27,7 +25,7 @@ const pageStyle = {
     sm: '380px',
     xl: '380px',
   },
-  height: '95vh',
+  height: '80vh',
   margin: '0 auto',
   display: 'flex',
   flexDirection: 'column',
@@ -35,6 +33,7 @@ const pageStyle = {
   alignItems: 'space-between',
   flexGrow: 1,
   flexShrink: 1,
+  overflowY: 'scroll',
 }
 
 const formTopLabel = {
@@ -44,75 +43,38 @@ const formTopLabel = {
   lineHeight: '50px',
 }
 
-function Item() {
+function Item({ itemIndex }) {
   const val = useContext(createOrdersContext)
   console.log('val[0]: ', val[0])
   const history = useHistory()
-  const [errMsg, setErrMsg] = useState('')
-  const toMerchantPage = () => {
-    if (val[0].items[0].quantity === '') {
-      setErrMsg('Quantity is required!!')
-    } else if (val[0].items[0].price.amount === '') {
-      setErrMsg('Price amount field is required!!')
-    } else if (val[0].items[0].price.currency === '') {
-      setErrMsg('Price currency field  is required!!')
-    } else if (val[0].items[0].name === '') {
-      setErrMsg('Name field is required!!')
-    } else if (val[0].items[0].category === '') {
-      setErrMsg('Category field is required!!')
-    } else if (val[0].items[0].sku === '') {
-      setErrMsg('Sku field is required!!')
-    } else {
-      history.replace('/merchant')
-    }
-  }
-  const toShippingPage = () => {
-    history.replace('/shipping')
-  }
 
   return (
     <>
       <Box className="form" sx={pageStyle}>
         <div>
           <form>
-            <FormLabel sx={formTopLabel} component="legend">
+            {/* <FormLabel sx={formTopLabel} component="legend">
               Object
-            </FormLabel>
+            </FormLabel> */}
             <div className="body-container">
-              <Paper
-                sx={{
-                  maxHeight: '500px',
-                  overflowY: 'scroll',
-                }}
-              >
+              <Paper sx={{}}>
                 <Grid
                   container
                   alignItems="center"
                   justify="center"
                   direction="column"
                 >
-                  {errMsg ? (
-                    <Box
-                      sx={{
-                        color: 'red',
-                        marginLeft: '1em',
-                      }}
-                    >
-                      {errMsg}
-                    </Box>
-                  ) : null}
-
                   <Stack spacing={2} sx={{ width: 300 }}>
                     <Autocomplete
                       sx={{ mt: 1 }}
                       freeSolo
                       id="gtin"
                       disableClearable
-                      value={val[0].items[0].gtin}
-                      onChange={(e, values) => {
+                      value={val[0].items[itemIndex].gtin}
+                      onChange={(e, value) => {
                         val[1]({
                           type: 'CREATE_ORDERS_UPDATE_ITEMS_GTIN',
-                          payload: values,
+                          payload: { value, itemIndex },
                         })
                       }}
                       options={['123458791330']}
@@ -125,9 +87,10 @@ function Item() {
                             type: 'text',
                           }}
                           onChange={(e) => {
+                            const value = e.target.value
                             val[1]({
                               type: 'CREATE_ORDERS_UPDATE_ITEMS_GTIN',
-                              payload: e.target.value,
+                              payload: { value, itemIndex },
                             })
                           }}
                         />
@@ -140,11 +103,12 @@ function Item() {
                       label="quantity"
                       type="text"
                       placeholder="1"
-                      value={val[0].items[0].quantity}
+                      value={val[0].items[itemIndex].quantity}
                       onChange={(e) => {
+                        const value = e.target.value
                         val[1]({
                           type: 'CREATE_ORDERS_UPDATE_ITEMS_QUANTITY',
-                          payload: e.target.value,
+                          payload: { value, itemIndex },
                         })
                       }}
                     />
@@ -164,11 +128,11 @@ function Item() {
                           freeSolo
                           id="amount"
                           disableClearable
-                          value={val[0].items[0].price.amount}
-                          onChange={(e, values) => {
+                          value={val[0].items[itemIndex].price.amount}
+                          onChange={(e, value) => {
                             val[1]({
                               type: 'CREATE_ORDERS_UPDATE_ITEMS_PRICE_AMOUNT',
-                              payload: values,
+                              payload: { value, itemIndex },
                             })
                           }}
                           options={['10.00']}
@@ -182,9 +146,10 @@ function Item() {
                                 type: 'text',
                               }}
                               onChange={(e) => {
+                                const value = e.target.value
                                 val[1]({
                                   type: 'CREATE_ORDERS_UPDATE_ITEMS_PRICE_AMOUNT',
-                                  payload: e.target.value,
+                                  payload: { value, itemIndex },
                                 })
                               }}
                             />
@@ -196,11 +161,11 @@ function Item() {
                           freeSolo
                           id="currency"
                           disableClearable
-                          value={val[0].items[0].price.currency}
-                          onChange={(e, values) => {
+                          value={val[0].items[itemIndex].price.currency}
+                          onChange={(e, value) => {
                             val[1]({
                               type: 'CREATE_ORDERS_UPDATE_ITEMS_PRICE_CURRENCY',
-                              payload: values,
+                              payload: { value, itemIndex },
                             })
                           }}
                           options={['EUR']}
@@ -214,9 +179,10 @@ function Item() {
                                 type: 'text',
                               }}
                               onChange={(e) => {
+                                const value = e.target.value
                                 val[1]({
                                   type: 'CREATE_ORDERS_UPDATE_ITEMS_PRICE_CURRENCY',
-                                  payload: e.target.value,
+                                  payload: { value, itemIndex },
                                 })
                               }}
                             />
@@ -229,11 +195,11 @@ function Item() {
                       freeSolo
                       id="name"
                       disableClearable
-                      value={val[0].items[0].name}
-                      onChange={(e, values) => {
+                      value={val[0].items[itemIndex].name}
+                      onChange={(e, value) => {
                         val[1]({
                           type: 'CREATE_ORDERS_UPDATE_ITEMS_NAME',
-                          payload: values,
+                          payload: { value, itemIndex },
                         })
                       }}
                       options={['T-Shirt']}
@@ -247,9 +213,10 @@ function Item() {
                             type: 'text',
                           }}
                           onChange={(e) => {
+                            const value = e.target.value
                             val[1]({
                               type: 'CREATE_ORDERS_UPDATE_ITEMS_NAME',
-                              payload: e.target.value,
+                              payload: { value, itemIndex },
                             })
                           }}
                         />
@@ -260,11 +227,11 @@ function Item() {
                       freeSolo
                       id="category"
                       disableClearable
-                      value={val[0].items[0].category}
-                      onChange={(e, values) => {
+                      value={val[0].items[itemIndex].category}
+                      onChange={(e, value) => {
                         val[1]({
                           type: 'CREATE_ORDERS_UPDATE_ITEMS_CATEGORY',
-                          payload: values,
+                          payload: { value, itemIndex },
                         })
                       }}
                       options={['clothes']}
@@ -278,9 +245,10 @@ function Item() {
                             type: 'text',
                           }}
                           onChange={(e) => {
+                            const value = e.target.value
                             val[1]({
                               type: 'CREATE_ORDERS_UPDATE_ITEMS_CATEGORY',
-                              payload: e.target.value,
+                              payload: { value, itemIndex },
                             })
                           }}
                         />
@@ -291,11 +259,11 @@ function Item() {
                       freeSolo
                       id="sku"
                       disableClearable
-                      value={val[0].items[0].sku}
-                      onChange={(e, values) => {
+                      value={val[0].items[itemIndex].sku}
+                      onChange={(e, value) => {
                         val[1]({
                           type: 'CREATE_ORDERS_UPDATE_ITEMS_SKU',
-                          payload: values,
+                          payload: { value, itemIndex },
                         })
                       }}
                       options={['12341234']}
@@ -309,9 +277,10 @@ function Item() {
                             type: 'text',
                           }}
                           onChange={(e) => {
+                            const value = e.target.value
                             val[1]({
                               type: 'CREATE_ORDERS_UPDATE_ITEMS_SKU',
-                              payload: e.target.value,
+                              payload: { value, itemIndex },
                             })
                           }}
                         />
@@ -322,11 +291,11 @@ function Item() {
                       freeSolo
                       id="brand"
                       disableClearable
-                      value={val[0].items[0].brand}
-                      onChange={(e, values) => {
+                      value={val[0].items[itemIndex].brand}
+                      onChange={(e, value) => {
                         val[1]({
                           type: 'CREATE_ORDERS_UPDATE_ITEMS_BRAND',
-                          payload: values,
+                          payload: { value, itemIndex },
                         })
                       }}
                       options={['TopChoice']}
@@ -339,9 +308,10 @@ function Item() {
                             type: 'text',
                           }}
                           onChange={(e) => {
+                            const value = e.target.value
                             val[1]({
                               type: 'CREATE_ORDERS_UPDATE_ITEMS_BRAND',
-                              payload: e.target.value,
+                              payload: { value, itemIndex },
                             })
                           }}
                         />
@@ -352,27 +322,6 @@ function Item() {
               </Paper>
             </div>
           </form>
-        </div>
-
-        <div>
-          <Button
-            variant="contained"
-            color="secondary"
-            type="submit"
-            onClick={toShippingPage}
-            fullWidth
-          >
-            Previous
-          </Button>
-          <Button
-            fullWidth
-            variant="contained"
-            color="primary"
-            type="submit"
-            onClick={toMerchantPage}
-          >
-            Next
-          </Button>
         </div>
       </Box>
     </>
